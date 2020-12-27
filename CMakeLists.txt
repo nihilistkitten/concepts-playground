@@ -7,4 +7,7 @@ set(CMAKE_CXX_STANDARD 20)  # concepts are in c++20
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_subdirectory(animal)
+
+enable_testing()
+add_test(test_animal test_animal)
  
