@@ -1,5 +1,6 @@
 /*
- * A simple `Animal` concept which requires a single `noise` method.
+ * A simple `Animal` concept which requires a single `noise` method. This
+ * library is just to practice/demonstrate the basic template syntax.
  *
  * by Riley Shahar
  *
