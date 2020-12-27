@@ -1,8 +1,28 @@
 ## Introduction
 
-A library of toy examples using C++20 concepts (written for my own education/exploration).
+A library of toy examples using C++20 concepts (written for my own education/exploration), including:
+
+ * **animal** - A simple template which demonstrates the basic concept syntax.
 
 ## Building
+
+Building depends on `cmake`. To build, run:
+
+```sh
+mkdir build && cd build
+cmake ../
+cmake --build .
+```
+
+To build an individual library, run:
+```sh
+cmake --build <library>
+```
+
+To run tests, run:
+```sh
+ctest
+```
 
 Note that C++20 concepts currently are not supported by Apple Clang (see https://en.cppreference.com/w/cpp/compiler_support), and so this code does not compile on Mac.
 
