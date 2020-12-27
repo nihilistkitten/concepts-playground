@@ -3,6 +3,7 @@
 A library of toy examples using C++20 concepts (written for my own education/exploration), including:
 
  * **animal** - A simple template which demonstrates the basic concept syntax.
+ * **iterator** - An implementation of an Iterator concept and various Rust-inspired methods.
 
 ## Building
 
