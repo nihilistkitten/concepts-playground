@@ -6,6 +6,7 @@
 
 #include "Iterator.hh"
 #include <cassert>
+#include <deque>
 #include <vector>
 
 int main(void) {
@@ -13,4 +14,9 @@ int main(void) {
   assert(iterator_concept::len<int>(vec));
   assert(*iterator_concept::nth<int>(vec, 2) == 3);
   assert(iterator_concept::nth<int>(vec, 3) == nullptr);
+
+  std::deque<int> queue = std::deque{1, 2, 3};
+  assert(iterator_concept::len<int>(queue));
+  assert(*iterator_concept::nth<int>(queue, 2) == 3);
+  assert(iterator_concept::nth<int>(queue, 3) == nullptr);
 }
