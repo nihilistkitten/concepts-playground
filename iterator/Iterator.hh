@@ -18,6 +18,17 @@ namespace iterator_concept {
 /// Requires the type to implement a `begin` and an `end` method which yield the
 /// same type and which we can increment and compare.
 ///
+/// T is the type of the iterator (usually a sequential container), I is the
+/// type it yields.
+///
+/// # Safety:
+/// This concept, and many of its methods, assume that for an Iterator a,
+/// a.end() is "after" a.begin(); that is, that
+/// ```c++
+/// for (auto it = iter.begin(); it != iter.end(); ++it);
+/// ```
+/// will deterministically terminate.
+///
 template <typename T, typename I> concept Iterator = requires(T a) {
 
   // begin and end must return the same type
@@ -58,7 +69,7 @@ template <typename I, Iterator<I> T> I len(T iter) {
 ///
 /// # Examples
 /// ```c++
-/// assert (*iterator_concept::nth(std::vector<int>{1, 2, 3}, 2) == 3);```
+/// assert (*iterator_concept::nth(std::vector<int>{1, 2, 3}, 2) == 3);
 /// ```
 ///
 /// ```c++
@@ -73,6 +84,8 @@ template <typename I, Iterator<I> T> I *nth(T iter, int n) {
   int i = 0;
   for (auto it = iter.begin(); it != iter.end(); ++it) {
     if (i == n) {
+      // deference the iterator and get a reference to it
+      // some of the stdlib iterators aren't std::convertible_to<*I>
       return &(*it);
     };
     i++;
