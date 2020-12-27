@@ -8,5 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 enable_testing()
 add_subdirectory(animal)
+add_subdirectory(iterator)
 
  
