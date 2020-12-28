@@ -7,6 +7,7 @@
 #include "Iterator.hh"
 #include <cassert>
 #include <deque>
+#include <string>
 #include <vector>
 
 int main(void) {
@@ -19,4 +20,8 @@ int main(void) {
   assert(iterator_concept::len<int>(queue));
   assert(*iterator_concept::nth<int>(queue, 2) == 3);
   assert(iterator_concept::nth<int>(queue, 3) == nullptr);
+
+  std::string s = "Hello, world!";
+  assert(iterator_concept::len<char>(s) == 13);
+  assert(*iterator_concept::nth<char>(s, 5) == ',');
 }

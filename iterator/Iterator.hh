@@ -2,10 +2,7 @@
  * by Riley Shahar.
  *
  * Defines an `Iterator` concept implemented in line with the STL iterators, and
- * various methods (mostly adapted from the Rust standard library) on them.
- *
- * See https://doc.rust-lang.org/std/iter/trait.Iterator.html for the source
- * that I'm adapting many of these methods from.
+ * various methods on them.
  */
 
 #include <cassert>
@@ -29,21 +26,28 @@ namespace iterator_concept {
 /// ```
 /// will deterministically terminate.
 ///
-template <typename T, typename I> concept Iterator = requires(T a) {
-
+/// Similarly, it assumes that all the memory "between" `a.begin()` and
+/// `a.end()` is valid; that is, that
+/// ```c++
+/// for (auto it = iter.begin(); it != iter.end(); +++it) {*it}
+/// ```
+/// is safe.
+///
+template <typename T, typename I>
+concept Iterator = requires(T a, decltype(a.begin()) b, decltype(a.end()) e) {
   // begin and end must return the same type
-  { *a.begin() }
+  { *b }
   ->std::convertible_to<I>;
-  { *a.end() }
+  { *e }
   ->std::convertible_to<I>;
 
   // we need to increment iterators
-  {++(a.begin())};
+  {++b};
 
   // we need to compare iterators (to determine if an iterator is done):
-  { a.begin() == a.begin() }
+  { b == e }
   ->std::same_as<bool>;
-  { a.begin() != a.begin() }
+  { b != e }
   ->std::same_as<bool>;
 };
 
@@ -90,6 +94,8 @@ template <typename I, Iterator<I> T> I *nth(T iter, int n) {
     };
     i++;
   }
+  // note this is more efficient than checking n < len(iter) before the loop
+  // because len(iter) loops through the iterator anyway
   return nullptr;
 }
 
